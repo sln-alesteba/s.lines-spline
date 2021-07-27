@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+		<meta charset="utf-8">
+		<meta name="keywords" content="spline tool documentation unity 3d asset plugin">
+		<meta name="description" 
+		      content="Spline Tool documentation web page for unity 3d engine.">
+		<meta name="Author" content="Walon Cab">
+
+		<title>Spline Tool Documentation | Spline Unity Asset</title>
+
+        <link rel="stylesheet" href="css/body.css">
+        <link rel="stylesheet" href="css/table.css">
+        <link rel="stylesheet" href="css/form.css">
+
+    </head>
+
+    <body>
+
+        <div class="content">
+
+            <iframe src="https://assetstore.unity.com/linkmaker/embed/package/165538/widget-wide?aid=1100ldXrT" 
+                    style="width:600px; height:130px; border:0px;">
+            </iframe>
+            
+            <h2>Table of Contents</h2>
+
+            <ol>
+                <li><a href="#create">Introduction</a></li>
+                <li><a href="#frame">Spline</a></li>
+                <li><a href="#node">Node</a></li>
+                <li><a href="#tools">Tools</a></li>
+            </ol>
+
+
+            <section id="create">
+
+                <h2>Create</h2>
+
+                <p>
+                In order to create a new Spline -> go to the unity toolbar -> S-Lines/Spline.
+                A new game object will be created with their correspondent scripts.
+                </p>
+
+            </section>
+
+            <section id="frame">
+
+                <h2>Spline Frame</h2>
+
+                <p>
+                This is the main component for editing and extending the spline. In order to edit the spline click on its 
+                correspondent nodes and drag them wherever you need them to be, this way you can create any path you want.
+                To make it easier for editing, the only way to add new nodes, is to duplicate the selected one, click the 
+                button inside its editor (each node is a different gameObject).
+                </p>
+
+                <img src="img/spline_frame_base.png" alt="Spline Base" class="center">
+
+                <h3>Architecture</h3>
+
+                <p>
+                    It is interesting to know that each nod is contained in a different gameObject. 
+                    They are connected in a linked list structure for fast iteration and easy CRUD {Create, Read, Update, Delete} operations.
+                    This spline architecture allows to create simple script extensions. 
+                    For example a single node could be moved at runtime in a wavy oscillation movement 
+                    (a script is needed to achieve this behavior).
+                </p>
+
+                <h3>Editing</h3>
+
+                <p>
+                On the scene view the spline is renderer with a thin curve line and the nodes are represented as white dots.
+                You can select the nodes:
+                </p>
+
+                <ul>
+                    <li>directly in the spline</li>
+                    <li>in the spline_frame inspector</li>
+                    <li>by opening the gameObject that contains the node</li>
+                </ul>
+
+                <p>Use the regular unity transform tool to drag the nodes anywhere you need them.</p>
+
+                <h3>Toolbar</h3>
+
+                <p>
+                    The Toolbar at the top of the component includes some of the basic editing options. 
+                </p>
+
+                <table>
+                    <tr>
+                        <th>Button</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td><</td>
+                        <td>Select the first node</td>
+                    </tr>
+                    <tr>
+                        <td>></td>
+                        <td>Select the last node</td>
+                    </tr>
+                    <tr>
+                        <td>R</td>
+                        <td>Reset the spline</td>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Duplicate the last node</td>
+                    </tr>
+                </table>
+                
+                <h3>Closed</h3>
+
+                <p>
+                The spline can be either open or closed. Many times closed path are needed, and when this is the case,
+                the rest of the components that depend directly on the spline shape will be notified in their behavior.
+                </p>
+
+                <h3>Node List</h3>
+
+                <p>
+                The inspector allows the view of all of the child nodes that conform the spline.
+                Any of them can be selected from here and the current GameObject selection will be modified.
+                </p>
+
+                <h3>Events</h3>
+
+                <p>
+                There are a few interesting events we might want to interact with such as when the shape of the spline is changed.
+                The tool supports the unity event property and allows a easy integration with the user scripts. 
+                </p>
+
+                <h3>Extensions</h3>
+
+                <p>
+                Within the Spline_Frame component you can create new behavior for the line, such as drawers or traversals.
+                In order to add a new extension component select the one you need on the "extend" view in the inspector.
+                </p>
+
+                <table>
+                    <tr>
+                        <th>Extension</th>
+                        <th>Behavior</th>
+                    </tr>
+                    <tr>
+                        <td><a href="#traverse">Traverse</td>
+                        <td>Traverse the spline and keep GameObjects at a fixed state in the spline</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#draw">Draw</td>
+                        <td>Render a Trail Render Component along the spline you created</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#mesh">Mesh</td>
+                        <td>Render different meshes along the spline</td>
+                    </tr>
+                </table> 
+                
+            </section>
+
+            <section id="node">
+
+                <h2>Spline Node</h2>
+        
+                <p>
+                    You can modify each individual node of the spline. There are a few interesting options in each of them.
+                </p>
+
+                <img src="img/spline_node_base.png" alt="Spline Node" class="center">
+
+                <h3>Toolbar</h3>
+
+                <p>
+                The Toolbar at the top of the component includes some of the basic editing options. 
+                Along with the node selection tools creates a nice user experience.
+                </p>
+
+                <table>
+                    <tr>
+                        <th>Button</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td><</td>
+                        <td>Select the previous node</td>
+                    </tr>
+                    <tr>
+                        <td>></td>
+                        <td>Select the next node</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Removes the current node</td>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Duplicate the current node</td>
+                    </tr>
+                </table> 
+
+                <h3>Mode</h3>
+
+                <p> By changing the node mode many different styles of spline can be achieved. Create any shape needed: </p>
+
+                <table>
+                    <tr>
+                        <th>Mode</th>
+                        <th>Behavior</th>
+                    </tr>
+                    <tr>
+                        <td>Free</td>
+                        <td>Leaf nodes can be drag anywhere</td>
+                    </tr>
+                    <tr>
+                        <td>Aligned</td>
+                        <td>Leaf nodes are enforced by their tangents</td>
+                    </tr>
+                    <tr>
+                        <td>Mirrored</td>
+                        <td>Leaf nodes are enforced by tangents and same distance to center</td>
+                    </tr>
+                    <tr>
+                        <td>Auto</td>
+                        <td>Leaf nodes are placed automatically and cannot be drag along</td>
+                    </tr>
+
+                    <tr>
+                        <td>Poly</td>
+                        <td>Leaf nodes disappear to make polygonal lines</td>
+                    </tr>
+                </table>
+
+                <p> 
+                    Use the {Duplicate} button to duplicate the current node, its the only way of extending the spline, and the most comfortable one.<br> 
+                    Use the {Remove} button to remove the current node, don't delete the gameObject directly: it can cause problems; 
+                </p>
+
+                <img src="img/spline - node.jpg" alt="Frame Traverse" width="600" height="400" class="center">
+
+            </section>
+
+            <section id="draw">
+
+                <h2>Draw</h2>
+
+                <p>
+                Draws a trail render along the line. You can modify any of the values the trail render includes
+                and they will be visible when the game starts. This component get updated automatically if you modify
+                the line during update mode.
+                </p>
+
+                <p>
+                    Draws a trail render along the line. You can modify any of the values the trail render includes
+                    and they will be visible when the game starts. This component get updated automatically if you modify
+                    the line during update mode.
+                </p>
+
+                <h4>Segment Length</h4>
+
+                <p>This parameter is critical for the final mesh. Depending on the segment distance the mesh ...</p>
+
+            </section>
+
+        </div>
+
+    </body>
+
+</html>

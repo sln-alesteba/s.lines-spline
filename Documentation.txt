@@ -1,0 +1,55 @@
+﻿Documentation:
+
+This is a very simple to use tool, read this document in case you have any doubts.
+
+* The scripts contained in the tool are easily accesed by unfolding the S-Lines.Spline DLL
+	Drag them to the inspector whenever you want to use them.
+
+	- Spline_Frame 		=> (Creates a spline when added to a gameobject)
+	- Spline_Node 		=> (Don't use it directly)
+	- Spline_Itr 		=> (Use it to traverse the spline)
+	- Spline_Update 	=> (Keeps the (Itr)s updated when the Spline Frame changes)
+	- Spline_Draw 		=> (Draws a trail render along the spline)
+
+	Dont use any of the scripts insisde the S-Lines.Frame DLL
+
+* To create a Spline drag to the inspector the Spline_Frame script. It will create the first node 
+for you, but in order to keep editing select the node.
+
+* You can select the nodes (Inside the Spline_Node inspector)
+	-> directly in the spline
+	-> in the spline_frame inspector
+	-> by opening the gameObject that contains the node
+
+	Use the editor to create the spline path that you want
+	Use the inspector to change the node mode {Free, Aligned, Mirrored, Auto, Poly}
+	Use the {Duplicate} button to duplicate the current node
+		-> its the only way of extending the spline
+	Use the {Remove} button to remove the current node
+		-> dont delete the gameObject directly: it can cause problems;
+
+* Spline_Itr is the script that contains the iteration in the spline. Use it to move
+a gameObject along the curve, but to do it in game mode (automatically) you need to attach a Script_Mover.
+
+	->The distance {parameter that describes the iteration state} represents the acumalated distance
+	from the start of the spline.
+
+* Script_Mover makes the Script_Itr work in game mode, and Handles.
+
+	Specify the direction that you want
+		-> Forward
+		-> Backward
+	Use the following modes for different movement
+		-> Loop
+		-> Ping-Pong
+		-> Stop
+
+EVENTS: use the different events in the scripts to comunicate with your scripts, this way you can 
+create your own specific actions for events such as:
+
+	-> OnSplineChanged 	: (Spline_Frame)
+	-> OnReachEnd 		: (Spline_Itr)
+	-> OnReachStart 	: (Spline_Itr)
+
+If you have any questions, feel free to write me at waloncab@gmail.com
+
